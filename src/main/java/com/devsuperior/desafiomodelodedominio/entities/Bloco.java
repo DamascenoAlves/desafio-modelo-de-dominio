@@ -2,7 +2,7 @@ package com.devsuperior.desafiomodelodedominio.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Entity
 @Table(name = "tb_blocos")
@@ -10,8 +10,8 @@ public class Bloco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDate inicio;
-    private LocalDate fim;
+    private Instant inicio;
+    private Instant fim;
 
     @ManyToOne
     @JoinColumn(name = "atividade_id")
@@ -20,7 +20,7 @@ public class Bloco {
     public Bloco() {
     }
 
-    public Bloco(Integer id, LocalDate inicio, LocalDate fim) {
+    public Bloco(Integer id, Instant inicio, Instant fim) {
         this.id = id;
         this.inicio = inicio;
         this.fim = fim;
@@ -34,19 +34,19 @@ public class Bloco {
         this.id = id;
     }
 
-    public LocalDate getInicio() {
+    public Instant getInicio() {
         return inicio;
     }
 
-    public void setInicio(LocalDate inicio) {
+    public void setInicio(Instant inicio) {
         this.inicio = inicio;
     }
 
-    public LocalDate getFim() {
+    public Instant getFim() {
         return fim;
     }
 
-    public void setFim(LocalDate fim) {
+    public void setFim(Instant fim) {
         this.fim = fim;
     }
 

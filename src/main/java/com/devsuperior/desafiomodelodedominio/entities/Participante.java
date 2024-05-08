@@ -1,6 +1,10 @@
 package com.devsuperior.desafiomodelodedominio.entities;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_participantes")
 public class Participante {
@@ -11,9 +15,8 @@ public class Participante {
     private String nome;
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "atividade_id")
-    private Atividade atividade;
+    @ManyToMany(mappedBy = "participantes")
+    private Set<Atividade> atividades = new HashSet<>();;
 
 
     public Participante() {
@@ -49,11 +52,7 @@ public class Participante {
         this.email = email;
     }
 
-    public Atividade getAtividade() {
-        return atividade;
-    }
-
-    public void setAtividade(Atividade atividade) {
-        this.atividade = atividade;
+    public Set<Atividade> getAtividades() {
+        return atividades;
     }
 }

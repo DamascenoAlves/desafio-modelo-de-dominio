@@ -3,7 +3,9 @@ package com.devsuperior.desafiomodelodedominio.entities;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_atividades")
@@ -11,7 +13,7 @@ public class Atividade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String nome;
     @Column(columnDefinition = "TEXT")
     private String descricao;
     private Double preco;
@@ -23,14 +25,18 @@ public class Atividade {
     @OneToMany(mappedBy = "atividade")
     private List<Bloco> blocos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "atividade")
-    private List<Participante> participantes = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "tb_atividades_participantes",
+        joinColumns = @JoinColumn(name="atividade_id"),
+        inverseJoinColumns = @JoinColumn(name = "participante_id"))
+    private Set<Participante> participantes = new HashSet<>();
+
     public Atividade() {
     }
 
     public Atividade(Integer id, String name, String descricao, Double preco) {
         this.id = id;
-        this.name = name;
+        this.nome = name;
         this.descricao = descricao;
         this.preco = preco;
     }
@@ -44,11 +50,11 @@ public class Atividade {
     }
 
     public String getName() {
-        return name;
+        return nome;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nome = name;
     }
 
     public String getDescricao() {
@@ -79,7 +85,7 @@ public class Atividade {
         return blocos;
     }
 
-    public List<Participante> getParticipantes() {
+    public Set<Participante> getParticipantes() {
         return participantes;
     }
 }
